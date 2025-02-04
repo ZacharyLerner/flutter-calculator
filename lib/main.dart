@@ -55,6 +55,17 @@ class _CalculatorScreenState extends State<CalculatorScreen> {
     });
   }
 
+  void _square() {
+    setState(() {
+      final expression = Expression.parse(_expression);
+      final evaluator = const ExpressionEvaluator();
+      final result = evaluator.eval(expression, {});
+      final squaredResult = result * result;
+      _expression = squaredResult.toString();
+      _result = squaredResult.toString();
+    });
+  }
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -145,6 +156,10 @@ class _CalculatorScreenState extends State<CalculatorScreen> {
               CalculatorButton(
                 text: 'C',
                 onPressed: _clearExpression,
+              ),
+              CalculatorButton(
+                text: '^2',
+                onPressed: _square,
               ),
             ],
           ),
